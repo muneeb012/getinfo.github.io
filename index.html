@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Get-Info</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+      <script src="index.js"></script>
+    <main>
+        <div class="form">
+            <form id="my-form" action="https://formspree.io/f/xdorrwde" method="post">
+                <div class="logo">
+                    <img width="60px" src="logo.PNG" alt="">
+                </div>
+                <div class="form1">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Name</label>
+                  <input  name="Name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Father Name</label>
+                    <input name="Father-Name"  type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Cnic</label>
+                    <input name="Cnic" type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                  </div>
+                  <label for="Education info"> Education</label>
+                  <div class="input-group">
+                    <textarea  name="education" class="form-control" aria-label="With textarea" required></textarea>
+                  </div>
+                </div>
+                  <br>
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Skill 1</label>
+                    <input name="skill 1" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                  </div>
+                  
+                  <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Skill 2</label>
+                      <input name="skill 2" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Skill 3</label>
+                      <input name="skill 3" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    </div>
+                    <label for="Education info"> Experience</label>
+                    <div class="input-group">
+                      <textarea name="Experience" class="form-control" aria-label="With textarea"></textarea>
+                    </div>
+             
+                    <br>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Date of Birth</label>
+                        <input name="Date" type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                      </div>
+                      
+                      <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">Phone</label>
+                          <input name="Phone" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">Email</label>
+                          <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                        </div>
+                     
+                <button type="submit" class="btn btn-primary">Submit</button>
+                
+
+              </form>
+        </div>
+        <style>
+            .form{
+                width: 300px;
+                background-color: rgb(255, 255, 255);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            main{
+                width: 100%;
+                height: auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              
+            }
+            .logo{
+                text-align: center;
+            }
+        </style>
+        <script>
+            var form = document.getElementById("my-form");
+            
+            async function handleSubmit(event) {
+              event.preventDefault();
+              var status = document.getElementById("my-form-status");
+              var data = new FormData(event.target);
+              fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+              }).then(response => {
+                if (response.ok) {
+                  location.href="thanks.html";
+                  form.reset()
+                } else {
+                  response.json().then(data => {
+                    if (Object.hasOwn(data, 'errors')) {
+                      status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+                    } else {
+                      status.innerHTML = "Oops! There was a problem submitting your form"
+                    }
+                  })
+                }
+              }).catch(error => {
+                status.innerHTML = "Oops! There was a problem submitting your form"
+              });
+            }
+            form.addEventListener("submit", handleSubmit)
+        </script>
+    </main>
+    
+  </body>
+</html>
